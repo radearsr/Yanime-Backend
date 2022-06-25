@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { connectDB, queryDB } from "../model/Functions.js";
+import { connectDB, queryDB } from "../models/Functions.js";
 
 const CURRENT_CONF = {
   status: "success",
