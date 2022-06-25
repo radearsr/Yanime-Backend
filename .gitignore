@@ -1,4 +1,7 @@
 /node_modules
 
-/assets/movie/*
-/assets/series/*
+/assets/movie/**/*.mp4
+/assets/movie/**/*.mkv
+
+/assets/series/**/*.mp4
+/assets/series/**/*.mkv
