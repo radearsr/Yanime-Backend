@@ -1,0 +1,23 @@
+<div class="form-wrapper">
+  <h1>Tambah Episode Anime</h1>
+  <form action="/add-eps" method="post" class="card">
+    <div class="input-group">
+      <label for="title">Nama Anime</label>
+      <select name="idAnime" id="">
+        <option selected disabled>Choose</option>
+        <% animes.forEach((anime) => { %>
+          <option value="<%= anime.id %>"><%= anime.title %></option>
+        <% }) %>  
+      </select>
+    </div>
+    <div class="input-group">
+      <label for="episode">Episode</label>
+      <input type="number" name="episode" id="episode">
+    </div>
+    <div class="input-group">
+      <label for="linkPath">Link Path</label>
+      <input type="text" name="linkPath" id="linkPath">
+    </div>
+    <button type="submit">Kirim</button>
+  </form>
+</div>

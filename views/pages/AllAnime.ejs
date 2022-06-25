@@ -1,0 +1,36 @@
+<div class="content-details">
+  <div class="content-list projects-list">
+    <div class="header-list">
+      <h2 class="title-list">Data Anime</h2>
+      <a href="#">See All <span class="fas fa-arrow-right"></span></a>
+    </div>
+    <table class="table-project-list">
+      <thead>
+        <tr>
+          <th>Nama Anime</th>
+          <th>Poster</th>
+          <th>Genre</th>
+          <th>Type</th>
+          <th>Deskripsi</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% animes.forEach((anime, index) => { %>
+          <tr>
+            <td><%= anime.title %></td>
+            <td><%= anime.poster %> </td>
+            <td><%= anime.genre %></td>
+            <td><%= anime.type %></td>
+            <td><%= anime.description %></td>
+            <td>
+              <a href="/anime-detail/<%= anime.id %>">edit</a>
+              <a href="/anime-del/<%= anime.id %>" onclick="return confirm('Hapus <%= anime.title %> ?')">delete</a>
+              <a href="/all-eps/<%= anime.id %>">eps</a>
+            </td>
+          </tr>
+       <%  }); %> 
+      </tbody>
+    </table>
+  </div>
+</div>
