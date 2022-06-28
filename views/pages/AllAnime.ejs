@@ -11,6 +11,7 @@
           <th>Poster</th>
           <th>Genre</th>
           <th>Type</th>
+          <th>Jumlah</th>
           <th>Deskripsi</th>
           <th>Action</th>
         </tr>
@@ -18,11 +19,12 @@
       <tbody>
         <% animes.forEach((anime, index) => { %>
           <tr>
-            <td><%= anime.title %></td>
-            <td><%= anime.poster %> </td>
-            <td><%= anime.genre %></td>
+            <td><%= anime.title.length > 20 ? anime.title.substring(0, 19) + "..." : anime.title %></td>
+            <td><%= anime.poster.length > 10 ? anime.poster.substring(0, 9) + "..." : anime.poster %> </td>
+            <td><%= anime.genre.length > 15 ? anime.genre.substring(0, 14) + "..." : anime.genre %></td>
             <td><%= anime.type %></td>
-            <td><%= anime.description %></td>
+            <td><%= anime.total_eps %></td>
+            <td><%= anime.description.length > 20 ? anime.description.substring(0, 19) + "..." : anime.description %></td>
             <td>
               <a href="/anime-detail/<%= anime.id %>">edit</a>
               <a href="/anime-del/<%= anime.id %>" onclick="return confirm('Hapus <%= anime.title %> ?')">delete</a>

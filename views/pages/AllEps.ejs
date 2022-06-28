@@ -2,7 +2,7 @@
   <div class="content-list projects-list">
     <div class="header-list">
       <h2 class="title-list">Data Episode Anime</h2>
-      <a href="#">See All <span class="fas fa-arrow-right"></span></a>
+      <a href="/all-anime"><i class="fas fa-arrow-circle-left"></i> Back To Anime List</a>
     </div>
     <table class="table-project-list">
       <thead>
@@ -16,7 +16,7 @@
         <% data.forEach((dt) => { %>
           <tr>
             <td><%= dt.episode %></td>
-            <td><%= dt.link_path %></td>
+            <td><%= dt.link_path.length > 20 ? dt.link_path.substring(0, 19) + "..." : dt.link_path %></td>
             <td>
               <a href="/eps-detail/<%= dt.id %>">Edit</a>
               <a href="/eps-del/<%= dt.id %>?id-list=<%= dt.id_anime%>" onclick="return confirm('Hapus <%= dt.link_path %> ?')">Delete</a>

@@ -7,10 +7,11 @@ const createAnimeList = async (req, res) => {
       poster,
       genre,
       type,
+      totalEps,
       description,
     } = req.body;
 
-    const queryStr = "INSERT INTO anime (title, poster, genre, type, description) VALUES ?";
+    const queryStr = "INSERT INTO anime (title, poster, genre, type, total_eps, description) VALUES ?";
     const escValue = [
       [
         [
@@ -18,6 +19,7 @@ const createAnimeList = async (req, res) => {
           poster,
           genre,
           type,
+          totalEps,
           description,
         ],
       ],
@@ -65,6 +67,7 @@ const editDetailAnimeById = async (request, response) => {
       poster,
       genre,
       type,
+      totalEps,
       description,
     } = request.body;
 
@@ -73,6 +76,7 @@ const editDetailAnimeById = async (request, response) => {
       poster,
       genre,
       type,
+      total_eps: totalEps,
       description,
     }, [id]];
 
@@ -100,17 +104,31 @@ const deleteDetailAnimeById = async (request, response) => {
 
 const createNewEps = async (request, response) => {
   try {
-    const { idAnime, episode, linkPath } = request.body;
+    const {
+      idAnime,
+      totalEps,
+      type,
+      withZero,
+      genPathName,
+    } = request.body;
 
-    const insertVal = [
-      [
-        [
-          parseFloat(idAnime),
-          parseFloat(episode),
-          linkPath,
-        ],
-      ],
-    ];
+    const insertVal = [[]];
+
+    if (type === "series") {
+      for (let eps = 1; eps < totalEps; eps += 1) {
+        let videoEps;
+
+        if (withZero) {
+          videoEps = eps < 10 ? `0${eps}` : eps;
+        } else {
+          videoEps = eps;
+        }
+
+        insertVal[0].push([parseFloat(idAnime), eps, `${genPathName}${videoEps}.mp4`]);
+      }
+    } else {
+      insertVal[0].push([parseFloat(idAnime), parseFloat(totalEps), `${genPathName}.mp4`]);
+    }
 
     const conn = await connectDB();
     await queryDB(conn, "INSERT INTO source (id_anime, episode, link_path) VALUES ?", insertVal);

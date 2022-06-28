@@ -93,12 +93,16 @@ const readAnimeDetail = async (req, res) => {
     const secondCon = await connectDB();
     const episodes = await queryDB(secondCon, "SELECT episode, link_path FROM source WHERE id_anime=?", [id]);
 
+    const thirdCon = await connectDB();
+    const [{ countEps }] = await queryDB(thirdCon, "SELECT COUNT(link_path) AS countEps FROM source WHERE id_anime=?", [id]);
+
     const anime = {
       id,
       title,
       poster,
       genre,
       description,
+      countEps,
       episodes,
     };
 
@@ -115,7 +119,37 @@ const readAllAnimeList = async (req, res) => {
   try {
     const conn = await connectDB();
     const result = await queryDB(conn, "SELECT * FROM anime", "");
-    console.log(result);
+
+    res.status(200).json({
+      status: "success",
+      data: [...result],
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const readAllAnimeByCategory = async (req, res) => {
+  try {
+    const { name } = req.query;
+
+    const conn = await connectDB();
+    const result = await queryDB(conn, "SELECT * FROM anime WHERE type=?", name);
+
+    res.status(200).json({
+      status: "success",
+      data: [...result],
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const readAnimeBySearch = async (req, res) => {
+  try {
+    const { query } = req.query;
+    const conn = await connectDB();
+    const result = await queryDB(conn, `SELECT * FROM anime WHERE title LIKE '%${query}%'`);
 
     res.status(200).json({
       status: "success",
@@ -130,4 +164,6 @@ export {
   playAnimeVideo,
   readAnimeDetail,
   readAllAnimeList,
+  readAllAnimeByCategory,
+  readAnimeBySearch,
 };

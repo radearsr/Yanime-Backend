@@ -19,6 +19,8 @@ import {
   playAnimeVideo,
   readAnimeDetail,
   readAllAnimeList,
+  readAllAnimeByCategory,
+  readAnimeBySearch,
 } from "./routes/API.Handler.js";
 
 const app = express();
@@ -29,12 +31,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(cors());
 
-app.get("/anime/:longTitleAnime", (req, res) => {
+app.get("/anime/detail/:longTitleAnime", (req, res) => {
   readAnimeDetail(req, res);
 });
 
 app.get("/anime", (req, res) => {
   readAllAnimeList(req, res);
+});
+
+app.get("/anime/category", (req, res) => {
+  readAllAnimeByCategory(req, res);
+});
+
+app.get("/anime/search", (req, res) => {
+  readAnimeBySearch(req, res);
 });
 
 app.get("/video/:longTitleAnime", (req, res) => {

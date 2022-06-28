@@ -22,10 +22,15 @@
         </select>
       </div>
       <div class="input-group">
+        <label for="totalEps">Jumlah Episode</label>
+        <input type="number" name="totalEps" id="totalEps" value="<%= anime.total_eps %>">
+      </div>
+      <div class="input-group">
         <label for="descriptions">Description</label>
         <textarea name="description" id="description" cols="30" rows="5"><%= anime.description %></textarea>
       </div>
       <button type="submit">Kirim</button>
+      <a href="/all-anime" class="btn-back">Back To List</a>
     </form>
   </div>
 <% }); %> 

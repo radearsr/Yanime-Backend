@@ -11,12 +11,28 @@
       </select>
     </div>
     <div class="input-group">
-      <label for="episode">Episode</label>
-      <input type="number" name="episode" id="episode">
+      <label for="type">Type</label>
+      <select name="type" id="type">
+        <option selected disabled>Choose</option>
+        <option value="movie">Movie</option>
+        <option value="series">Series</option>
+      </select>
     </div>
     <div class="input-group">
-      <label for="linkPath">Link Path</label>
-      <input type="text" name="linkPath" id="linkPath">
+      <label for="withZero">Number With Zero</label>
+      <select name="withZero" id="withZero">
+        <option selected disabled>Choose</option>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label for="totalEps">Total Episode</label>
+      <input type="number" name="totalEps" id="totalEps">
+    </div>
+    <div class="input-group">
+      <label for="genPathName">General Path Name</label>
+      <input type="text" name="genPathName" id="genPathName" placeholder="Ex : Kimi-No-Nawa">
     </div>
     <button type="submit">Kirim</button>
   </form>
