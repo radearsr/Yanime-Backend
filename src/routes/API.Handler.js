@@ -93,16 +93,12 @@ const readAnimeDetail = async (req, res) => {
     const secondCon = await connectDB();
     const episodes = await queryDB(secondCon, "SELECT episode, link_path FROM source WHERE id_anime=?", [id]);
 
-    const thirdCon = await connectDB();
-    const [{ countEps }] = await queryDB(thirdCon, "SELECT COUNT(link_path) AS countEps FROM source WHERE id_anime=?", [id]);
-
     const anime = {
       id,
       title,
       poster,
       genre,
       description,
-      countEps,
       episodes,
     };
 

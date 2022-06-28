@@ -26,9 +26,7 @@ const createAnimeList = async (req, res) => {
     ];
 
     const conn = await connectDB();
-    const insertedData = await queryDB(conn, queryStr, escValue);
-
-    console.log(insertedData);
+    await queryDB(conn, queryStr, escValue);
     res.redirect("/add-anime");
   } catch (error) {
     console.log(error);
