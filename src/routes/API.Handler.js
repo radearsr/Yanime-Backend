@@ -14,7 +14,8 @@ const readVideoPathFromDb = async (longTitleAnime) => {
   if (longTitleAnime.includes("eps")) {
     const splitLongTitleAnime = longTitleAnime.split("eps");
     titleAnime = splitLongTitleAnime[0].slice(0, -1).split("-").join(" ");
-    epsAnime = splitLongTitleAnime[1].slice(1, 2);
+    [, epsAnime] = splitLongTitleAnime;
+    epsAnime = parseFloat(epsAnime) * -1;
   } else {
     titleAnime = longTitleAnime.split("-").join(" ");
     epsAnime = 1;
@@ -25,7 +26,7 @@ const readVideoPathFromDb = async (longTitleAnime) => {
   const [{ id }] = getIdAnime;
 
   const secondCon = await connectDB();
-  const getSource = await queryDB(secondCon, "SELECT link_path FROM source WHERE id_anime=? AND episode=?", [id, parseFloat(epsAnime)]);
+  const getSource = await queryDB(secondCon, "SELECT link_path FROM source WHERE id_anime=? AND episode=?", [id, epsAnime]);
   const [{ link_path: linkPath }] = getSource;
 
   const dirname = path.resolve();
@@ -91,7 +92,11 @@ const readAnimeDetail = async (req, res) => {
     }] = getIdAnime;
 
     const secondCon = await connectDB();
-    const episodes = await queryDB(secondCon, "SELECT episode, link_path FROM source WHERE id_anime=?", [id]);
+    const episodes = await queryDB(
+      secondCon,
+      "SELECT episode, link_path FROM source WHERE id_anime=? ORDER BY episode ASC",
+      [id],
+    );
 
     const anime = {
       id,
