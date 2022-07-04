@@ -6,16 +6,16 @@
 }
 
 @media (max-width: 767.98px) {
-  .sidebar {
+  .sidebar.clicked {
     display: none;
   }
-  .sidebar .title-brand i#close-btn {
+  .sidebar.clicked .title-brand i#close-btn {
     display: inline-block;
   }
-  .sidebar ~ .main-contents {
+  .sidebar.clicked ~ .main-contents {
     margin-left: 0;
   }
-  .sidebar ~ .main-contents header {
+  .sidebar.clicked ~ .main-contents header {
     width: 100%;
   }
   main .cards {
@@ -37,25 +37,25 @@
   }
 
   /* If Ham menu clicked */
-  .sidebar.clicked {
+  .sidebar {
     display: block;
     width: 375px;
     z-index: 99;
     transition: width 0.3s;
   }
-  .sidebar.clicked ~ .main-contents {
+  .sidebar ~ .main-contents {
     margin-left: 0;
   }
-  .sidebar.clicked ~ .main-contents header {
+  .sidebar ~ .main-contents header {
     width: 100%;
   }
-  .sidebar.clicked .title-brand span {
+  .sidebar .title-brand span {
     display: inline-block;
   }
-  .sidebar.clicked .sidebar-menu li > a span {
+  .sidebar .sidebar-menu li > a span {
     display: inline-block;
   }
-  .sidebar.clicked .title-brand span ~ i {
+  .sidebar .title-brand span ~ i {
     display: block;
     font-size: 2rem;
   }
