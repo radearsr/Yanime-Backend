@@ -1,7 +1,3 @@
-exports.mainPage = (req, res) => {
-  res.render("index", { activePage: "home" });
-};
-
 exports.createAnimeList = (req, res) => {
   const {
     title,

@@ -3,7 +3,6 @@ const animeControllers = require("../controllers/animeControllers");
 const router = express.Router();
 
 
-router.post("/anime", animeControllers.createAnimeList);
-router.get("/", animeControllers.mainPage);
+router.post("/lists", animeControllers.createAnimeList);
 
 module.exports = router;

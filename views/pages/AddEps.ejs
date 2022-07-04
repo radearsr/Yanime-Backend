@@ -6,7 +6,7 @@
       <select name="idAnime" id="">
         <option selected disabled>Choose</option>
         <% animes.forEach((anime) => { %>
-          <option value="<%= anime.id %>"><%= anime.title %></option>
+          <option value="<%= anime._id %>"><%= anime.title %></option>
         <% }) %>  
       </select>
     </div>
@@ -16,7 +16,7 @@
     </div>
     <div class="input-group">
       <label for="linkPath">Link Path</label>
-      <input type="text" name="linkPath" id="linkPath">
+      <input type="text" name="path" id="linkPath">
     </div>
     <button type="submit">Kirim</button>
   </form>
