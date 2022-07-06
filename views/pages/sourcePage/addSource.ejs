@@ -1,9 +1,9 @@
 <div class="form-wrapper">
   <h1>Tambah Episode Anime</h1>
-  <form action="/add-eps" method="post" class="card">
+  <form action="/add-src" method="post" class="card">
     <div class="input-group">
       <label for="title">Nama Anime</label>
-      <select name="idAnime" id="">
+      <select name="animeId" autocomplete="off" required>
         <option selected disabled>Choose</option>
         <% animes.forEach((anime) => { %>
           <option value="<%= anime._id %>"><%= anime.title %></option>
@@ -12,11 +12,11 @@
     </div>
     <div class="input-group">
       <label for="episode">Episode</label>
-      <input type="number" name="episode" id="episode">
+      <input type="number" name="episode" id="episode" autocomplete="off" required>
     </div>
     <div class="input-group">
       <label for="linkPath">Link Path</label>
-      <input type="text" name="path" id="linkPath">
+      <input type="text" name="path" id="linkPath" autocomplete="off" required>
     </div>
     <button type="submit">Kirim</button>
   </form>

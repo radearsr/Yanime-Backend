@@ -1,0 +1,35 @@
+<div class="content-details">
+  <div class="content-list projects-list">
+    <div class="header-list">
+      <h2 class="title-list">Data Episode Anime</h2>
+      <a href="/list-anime"><span class="fas fa-arrow-left"></span> Back</a>
+    </div>
+    <table class="table-project-list">
+      <thead>
+        <tr>
+          <th>Episode</th>
+          <th>Path</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (datas.length > 0) { %>
+          <% datas.forEach((data) => { %>
+            <tr>
+              <td><%= data.episode %></td>
+              <td><%= data.path %></td>
+              <td>
+                <a href="/edit-src/<%= data._id %>?list-id=<%= listId%>">Edit</a>
+                <a href="/del-src/<%= data._id %>?list-id=<%= listId%>" onclick="return confirm('Hapus <%= data.path %> ?')">Delete</a>
+              </td>
+            </tr>
+         <%  }); %> 
+        <% } else { %>  
+          <tr>
+            <td colspan="3" style="text-align: center;">Source belum tersedia</td>
+          </tr>
+        <% } %>  
+      </tbody>
+    </table>
+  </div>
+</div>

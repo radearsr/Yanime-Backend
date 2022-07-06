@@ -10,67 +10,157 @@ exports.addAnimeListPage = (req, res) => {
 };
 
 exports.createAnimeList = async (req, res) => {
-  const {
-    title,
-    poster,
-    genre,
-    type,
-    description,
-  } = req.body;
-  
-  const NewAnimeList = new AnimeList({
-    title,
-    poster,
-    genre,
-    type,
-    description,
-  });
-  
-  NewAnimeList.save()
-  .then(() => {
-    res.redirect("/add-eps");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+  try {
+    const {
+      title,
+      poster,
+      genre,
+      type,
+      description,
+    } = req.body;
+    
+    const NewAnimeList = new AnimeList({
+      title,
+      poster,
+      genre,
+      type,
+      description,
+    });
+
+    await NewAnimeList.save();
+    res.redirect("/add-src");
+  } catch(error) {
+    console.log(error);
+  }
 };
 
-exports.addAnimeEpisodePage = (req, res) => {
-  AnimeList.find()
-  .then((result) => {
-    res.render("index", { activePage: "add-eps", animes: result });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+exports.getAnimeListById = async (req, res) => {
+  try{
+    const { animeId } = req.params;
+    const result = await AnimeList.findById(animeId);
+    res.render("index", { activePage: "edit-anime", animes: [result] });
+  } catch(error) {
+    console.log(error);
+  }
 };
 
-exports.createAnimeEpisode = (req, res) => {
-  const { idAnime, episode, path } = req.body;
+exports.editAnimeListById = async (req, res) => {
+  try{
+    const { animeId } = req.params;
+    const {
+      title,
+      poster,
+      genre,
+      type,
+      description,
+    } = req.body;
+    const updateVal = {
+      title,
+      poster,
+      genre,
+      type,
+      description,
+    };
+    await AnimeList.findByIdAndUpdate(animeId, updateVal);
+    res.redirect("/list-anime");
+  } catch(error) {
+    console.log(error);
+  }
+};
 
-  console.log(idAnime);
+exports.delAnimeListById = async (req, res) => {
+  const { animeId } = req.params;
+  await AnimeList.findByIdAndRemove(animeId);
+  res.redirect("/list-anime");
+};
 
-  const NewEpisodeAnime = new Source({
-    episode,
-    path,
-  });
+exports.getAllAnimeList = async (req, res) => {
+  try {
+    const result = await AnimeList.find();
+    res.render("index", {activePage: "list-anime", animes: result});
 
-  NewEpisodeAnime.save()
-  .then((resultNewEps) => {
-    return resultNewEps._id;
-  })
-  .then((idEps) => {
-    return AnimeList.findByIdAndUpdate(
-      idAnime,
-      { $push: { episodes: idEps }},
-      { new: true, useFindAndModify: false },
+  } catch (error) {
+    console.log(error);
+  };
+};
+
+exports.getAllAnimeSource = async (req, res) => {
+  try {
+    const { animeId } = req.params;
+    const result = await AnimeList.findById(animeId).populate("episodes");
+    res.render("index", { activePage: "list-src", datas: result.episodes, listId: animeId });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.addAnimeSourcePage = async (req, res) => {
+  try {
+    const result = await AnimeList.find();
+    res.render("index", { activePage: "add-src", animes: result });
+  } catch(error) {
+    console.log(error);
+  }
+};
+
+exports.createAnimeSource = async (req, res) => {
+  try {
+    const { animeId, episode, path } = req.body;
+    const NewAnimeSource = new Source({
+      episode,
+      path,
+    });
+    
+    const animeSource = await NewAnimeSource.save();
+    const result = await AnimeList.findByIdAndUpdate(
+      animeId,
+      { $push: { episodes: animeSource._id } },
+      { new: true,  useFindAndModify: false },
     );
-  })
-  .then((result) => {
-    console.log(result);
-    res.redirect("/add-eps");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-}
+    res.redirect("/add-src");
+  } catch(error) {
+    console.log(error);
+  }
+};
+
+exports.getAnimeSourceById = async (req, res) => {
+  try {
+    const { sourceId } = req.params;
+    const { "list-id" : listId } = req.query;
+    const result = await Source.findById(sourceId);
+    res.render("index", { activePage: "edit-src", sources: [result], listId });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.editAnimeSourceById = async (req, res) => {
+  try {
+    const { sourceId } = req.params;
+    const { "list-id" : listId } = req.query;
+
+    const {
+      episode,
+      path,
+    } = req.body;
+    const updateVal = {
+      episode,
+      path,
+    };
+    await Source.findByIdAndUpdate(sourceId, updateVal);
+    res.redirect(`/list-src/${listId}`);
+  } catch(error) {
+    console.log(error);
+  }
+};
+
+exports.delAnimeSourceById = async (req, res) => {
+  try {
+    const { sourceId } = req.params;
+    const { "list-id" : listId } = req.query;
+    await Source.findByIdAndRemove(sourceId);
+    res.redirect(`/list-src/${listId}`);
+  } catch(error) {
+    console.log(error);
+  }
+};

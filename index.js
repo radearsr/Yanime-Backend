@@ -1,7 +1,7 @@
 const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
-const animeRoutes = require("./routes/anime");
+const apiRoutes = require("./routes/api");
 const adminRoutes = require("./routes/admin");
 const mongoose = require("mongoose");
 
@@ -10,12 +10,19 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/anime", animeRoutes);
 app.use("/", adminRoutes);
+app.use("/api", apiRoutes);
 
 const port = 5000;
 
-mongoose.connect("mongodb+srv://radeakui12:radeakui12@yanimecluster.rd4npbq.mongodb.net/yanime")
+let dbUrl;
+if (process.env.NODE_ENV === "production") {
+  dbUrl = "mongodb+srv://radeakui12:radeakui12@yanimecluster.rd4npbq.mongodb.net/yanime";
+} else {
+  dbUrl = "mongodb://localhost:27017/yanime";
+}
+
+mongoose.connect(dbUrl)
 .then(() => {
   console.log("Berhasil connect");
 })

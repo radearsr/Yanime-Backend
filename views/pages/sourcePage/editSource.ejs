@@ -1,16 +1,15 @@
 <% sources.forEach(source => { %>
   <div class="form-wrapper">
     <h1>Edit <%= source.id_anime %></h1>
-    <form action="/eps-detail/<%= source.id %>" method="post" class="card">
+    <form action="/edit-src/<%= source._id %>?list-id=<%= listId %>" method="post" class="card">
       <div class="input-group">
         <label for="episode">Episode</label>
         <input type="text" name="episode" id="episode" value="<%= source.episode %>">
       </div>
       <div class="input-group">
         <label for="link_path">Link</label>
-        <input type="text" name="linkPath" id="link_path" value="<%= source.link_path %>">
+        <input type="text" name="path" id="link_path" value="<%= source.path %>">
       </div>
-      <input type="hidden" name="idAnime" value="<%= source.id_anime %>">
       <button type="submit">Kirim</button>
     </form>
   </div>

@@ -13,9 +13,7 @@
     <title>Admin Dashboard</title>
   </head>
   <body>
-    <!-- Start Sidebar Menu -->
     <div class="sidebar clicked">
-      <!-- Sidebar Brand -->
       <div class="sidebar-brand">
         <h1 class="title-brand">
           <i class="fab fa-accusoft"></i> <span> Yanime</span>
@@ -23,7 +21,6 @@
         </h1>
       </div>
 
-      <!-- Sidebar Menu Item -->
       <div class="sidebar-menu">
         <ul>
           <li>
@@ -37,23 +34,20 @@
             >
           </li>
           <li>
-            <a href="/add-eps" class="<%= activePage === "add-eps" ? "active" : "" %>"
+            <a href="/add-src" class="<%= activePage === "add-src" ? "active" : "" %>"
               ><i class="fas fa-puzzle-piece sb-icon"></i><span>Tambah Episode</span></a
             >
           </li>
           <li>
-            <a href="/all-anime" class="<%= activePage == "all-anime" ? "active" : "" %>" 
+            <a href="/list-anime" class="<%= activePage == "list-anime" ? "active" : "" %>" 
               ><i class="fas fa-list sb-icon"></i><span>List Anime</span></a
             >
           </li>
         </ul>
       </div>
     </div>
-    <!-- End Sidebar Menu -->
 
-    <!-- Main  -->
     <div class="main-contents">
-      <!-- Header Section in main content -->
       <header>
         <div class="main-title">
           <span class="fas fa-bars" id="bar-menu"></span>
@@ -78,23 +72,22 @@
         </div>
       </header>
 
-      <!-- Main Section in main content -->
       <main> 
         <% if (activePage === "home") { %> 
           <%- include("./pages/Home") %> 
         <% } else if (activePage === "add-anime") { %> 
-          <%- include("./pages/AddAnime") %> 
-        <% } else if (activePage === "add-eps") { %>
-          <%- include("./pages/AddEps") %> 
-        <% } else if (activePage === "all-anime") { %>
-          <%- include("./pages/AllAnime") %> 
-        <% } else if (activePage === "all-eps") { %>
-          <%- include("./pages/AllEps") %> 
+          <%- include("./pages/animePage/addAnime") %> 
+        <% } else if (activePage === "add-src") { %>
+          <%- include("./pages/sourcePage/addSource") %> 
+        <% } else if (activePage === "list-anime") { %>
+          <%- include("./pages/animePage/listAnime") %> 
+        <% } else if (activePage === "list-src") { %>
+          <%- include("./pages/sourcePage/listSource") %> 
         <% } else if (activePage === "edit-anime") { %>
-          <%- include("./pages/EditAnime") %> 
-        <% } else if (activePage === "edit-eps") { %>
-          <%- include("./pages/EditEps") %> 
-        <% } %>
+          <%- include("./pages/animePage/editAnime") %> 
+        <% } else if (activePage === "edit-src") { %>
+          <%- include("./pages/sourcePage/editSource") %> 
+        <% } %>  
       </main>
     </div>
     <script src="/js/script.js"></script>

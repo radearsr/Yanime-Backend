@@ -1,7 +1,7 @@
 <% animes.forEach(anime => { %>
   <div class="form-wrapper">
     <h1>Edit "<%= anime.title %>"</h1>
-    <form action="/anime-detail/<%= anime.id %>" method="post" class="card">
+    <form action="/edit-anime/<%= anime._id %>" method="post" class="card">
       <div class="input-group">
         <label for="title">Judul Anime</label>
         <input type="text" name="title" id="title" value="<%= anime.title %>">

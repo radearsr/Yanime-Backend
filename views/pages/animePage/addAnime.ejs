@@ -3,19 +3,19 @@
   <form action="/add-anime" method="post" class="card">
     <div class="input-group">
       <label for="title">Judul Anime</label>
-      <input type="text" name="title" id="title">
+      <input type="text" name="title" id="title" autocomplete="off" required>
     </div>
     <div class="input-group">
       <label for="poster">Poster</label>
-      <input type="url" name="poster" id="poster">
+      <input type="url" name="poster" id="poster" autocomplete="off" required>
     </div>
     <div class="input-group">
       <label for="genre">Genre</label>
-      <input type="text" name="genre" id="genre">
+      <input type="text" name="genre" id="genre" autocomplete="off" required>
     </div>
     <div class="input-group">
       <label for="type">Type</label>
-      <select name="type" id="type">
+      <select name="type" id="type" autocomplete="off" required>
         <option selected disabled>Choose</option>
         <option value="movie">Movie</option>
         <option value="series">Series</option>
@@ -23,7 +23,7 @@
     </div>
     <div class="input-group">
       <label for="description">Description</label>
-      <textarea name="description" id="description" cols="30" rows="5"></textarea>
+      <textarea name="description" id="description" cols="30" rows="5" autocomplete="off" required></textarea>
     </div>
     <button type="submit">Tambah</button>
   </form>

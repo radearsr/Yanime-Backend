@@ -1,0 +1,50 @@
+<div class="content-details">
+  <div class="content-list projects-list">
+    <div class="header-list">
+      <h2 class="title-list">Data Anime</h2>
+      <a href="/add-anime"><span class="fas fa-plus"></span> Anime</a>
+    </div>
+    <table class="table-project-list">
+      <thead>
+        <tr>
+          <th>Nama Anime</th>
+          <th>Poster</th>
+          <th>Genre</th>
+          <th>Type</th>
+          <th>Eps</th>
+          <th>Deskripsi</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (animes.length > 0) { %> 
+          <% animes.forEach((anime, index) => { %>
+            <tr>
+              <td><%= anime.title %></td>
+              <td><%= anime.poster.length > 20 ? anime.poster.substring(0, 19) + "..." : anime.poster %> </td>
+              <td><%= anime.genre.length > 20 ? anime.genre.substring(0, 19)  + "..." : anime.genre %></td>
+              <td><%= anime.type %></td>
+              <td><%= anime.episodes.length %> </td>
+              <td>
+                <%=
+                  anime.description.length > 20 ?
+                   anime.description.substring(0, 19)  + "..." 
+                   : anime.description 
+                %>
+              </td>
+              <td>
+                <a href="/edit-anime/<%= anime._id %>">Edit</a>
+                <a href="/del-anime/<%= anime._id %>" onclick="return confirm('Hapus <%= anime.title %> ?')">Delete</a>
+                <a href="/list-src/<%= anime._id %>">Eps</a>
+              </td>
+            </tr>
+         <%  }); %> 
+        <% } else { %> 
+          <tr>
+            <td colspan="6" style="text-align: center;">Data belum tersedia</td>
+          </tr>
+        <% } %> 
+      </tbody>
+    </table>
+  </div>
+</div>
