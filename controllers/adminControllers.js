@@ -69,9 +69,18 @@ exports.editAnimeListById = async (req, res) => {
 };
 
 exports.delAnimeListById = async (req, res) => {
-  const { animeId } = req.params;
-  await AnimeList.findByIdAndRemove(animeId);
-  res.redirect("/list-anime");
+  try {
+    const { animeId } = req.params;
+    const anime = await AnimeList.findById(animeId);
+    anime.episodes.map( async (epsId) => {
+      await Source.findByIdAndRemove(epsId);
+    });
+    await AnimeList.findByIdAndRemove(animeId);
+    res.redirect("/list-anime");
+    
+  } catch(error) {
+    console.log(error);
+  }
 };
 
 exports.getAllAnimeList = async (req, res) => {
@@ -103,16 +112,54 @@ exports.addAnimeSourcePage = async (req, res) => {
   }
 };
 
+const createMultipleAnimeSource = async (req, res) => {
+  try {
+    const { animeId, path, totalEps } = req.body;
+  
+    const NewManyAnimeSource = [];
+    const pathSplited = path.split("1");
+    const [basePath, extentionPath] = pathSplited;
+
+    
+    for (let eps = 1; eps <= totalEps; eps++) {
+      NewManyAnimeSource.push(new Source({
+        episode: eps.toString(),
+        path: `${basePath}${eps}${extentionPath}`,
+      }));
+    }
+  
+    await Source.insertMany(NewManyAnimeSource);
+    
+    const animeSources = NewManyAnimeSource.map((src) => src._id);
+
+    animeSources.forEach( async (animeSrc) => {
+      await AnimeList.findByIdAndUpdate(
+        animeId,
+        {$push: { episodes: animeSrc}},
+        {new: true, useFindAndModify: false}
+      );
+    });
+    res.redirect("/add-src");
+  } catch(error) {
+    console.log(error);
+  }
+};
+
 exports.createAnimeSource = async (req, res) => {
   try {
-    const { animeId, episode, path } = req.body;
+    const { animeId, episode, path, multipleInsert } = req.body;
+    
+    if (multipleInsert === "true") {
+      createMultipleAnimeSource(req, res);
+      return;
+    }
+    
     const NewAnimeSource = new Source({
       episode,
       path,
     });
-    
     const animeSource = await NewAnimeSource.save();
-    const result = await AnimeList.findByIdAndUpdate(
+    await AnimeList.findByIdAndUpdate(
       animeId,
       { $push: { episodes: animeSource._id } },
       { new: true,  useFindAndModify: false },

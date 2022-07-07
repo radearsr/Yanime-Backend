@@ -5,3 +5,4 @@
 
 /assets/series/**/*.mp4
 /assets/series/**/*.mkv
+.env

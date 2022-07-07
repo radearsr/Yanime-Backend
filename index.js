@@ -1,5 +1,6 @@
-const bodyParser = require("body-parser");
+require("dotenv").config();
 const express = require("express");
+const bodyParser = require("body-parser");
 const app = express();
 const apiRoutes = require("./routes/api");
 const adminRoutes = require("./routes/admin");
@@ -17,9 +18,9 @@ const port = 5000;
 
 let dbUrl;
 if (process.env.NODE_ENV === "production") {
-  dbUrl = "mongodb+srv://radeakui12:radeakui12@yanimecluster.rd4npbq.mongodb.net/yanime";
+  dbUrl = process.env.DB_PROD;
 } else {
-  dbUrl = "mongodb://localhost:27017/yanime";
+  dbUrl = process.env.DB_DEV;
 }
 
 mongoose.connect(dbUrl)

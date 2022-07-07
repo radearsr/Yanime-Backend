@@ -354,3 +354,8 @@ button[type="submit"]{
   border: none;
   border-radius: 0.5rem;
 }
+
+.d-none {
+  display: none;
+  transition: 0.3s;
+}

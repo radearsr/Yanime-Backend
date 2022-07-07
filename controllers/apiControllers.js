@@ -10,7 +10,14 @@ const VIDEO_CONF = {
 
 exports.getAllAnimeList = async (req, res) => {
   try {
-    const result = await AnimeList.find();
+    const { category = "" } = req.query;
+    let result;
+
+    if (category !== undefined && category !== "") {
+      result = await AnimeList.find({type: { $eq: category }});
+    } else {
+      result = await AnimeList.find();
+    }
     res.status(200).json({
       statu: "success",
       data: result,
@@ -20,15 +27,28 @@ exports.getAllAnimeList = async (req, res) => {
   }
 };
 
+exports.getAllAnimeBySearch = async (req, res) => {
+  try {
+    const { query } = req.query;
+    const result = await AnimeList.find({ title: { $regex: query, $options: "i" } });
+    res.status(200).json({
+      status: "success",
+      data: result,
+    });
+  } catch(error) {
+    console.log(error);
+  }
+};
+
 const reformatDetailInfo = (longDetail) => {
-  let title, epsAnime;
+  let titleAnime, epsAnime;
   if(longDetail.includes("eps")) {
     const longDetailSplit = longDetail.split("eps");
     const [titleSplited, epsSplited] = longDetailSplit; 
-    title = titleSplited.split("-").join(" ");
+    titleAnime = titleSplited.split("-").join(" ");
     [,epsAnime] = epsSplited.split("-");
   } else {
-    title = longDetail.split("-").join(" ");
+    titleAnime = longDetail.split("-").join(" ");
     epsAnime = "1";
   }
   return [title, epsAnime];
