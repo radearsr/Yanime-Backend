@@ -51,7 +51,7 @@ const reformatDetailInfo = (longDetail) => {
     titleAnime = longDetail.split("-").join(" ");
     epsAnime = "1";
   }
-  return [title, epsAnime];
+  return [titleAnime, epsAnime];
 }
 
 exports.getDetailAnimeByTitle = async (req, res) => {
