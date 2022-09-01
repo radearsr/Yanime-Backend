@@ -20,7 +20,7 @@ const port = 5000;
 
 let dbUrl;
 if (process.env.NODE_ENV === "production") {
-  dbUrl = process.env.DB_PROD;
+  dbUrl = process.env.DB_PROD;  
 } else {
   dbUrl = process.env.DB_DEV;
 }
