@@ -121,6 +121,8 @@ exports.createEpisodesController = async (req, res) => {
     const { animeId, episode } = req.body;
 
     const sourceId = await animeService.insertSources(req.body);
+
+    console.log(episode);
     
     await animeService.insertEpisodes(animeId, episode, sourceId);
 
@@ -150,7 +152,6 @@ exports.editEpisodePage = async (req, res) => {
     const { episodeId } = req.params;
     const { animeid } = req.query;
     const episode = await animeService.getEpisodeById(episodeId);
-    console.log(episode);
     res.render("index", { activePage: "edit-eps", episode, animeid });
   } catch (error) {
     console.error(error);

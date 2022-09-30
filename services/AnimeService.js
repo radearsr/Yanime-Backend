@@ -133,7 +133,7 @@ exports.deleteAnimeById = async (animeId) => {
 
 exports.getEpisodes = async (animeId) => {
   const conn = await connectToDatabase();
-  const sqlString = "SELECT eps.id, eps.number, src.mp4, src.gdrive, src.other FROM episodes AS eps JOIN sources AS src ON src.id = eps.source_id WHERE eps.title_id=?";
+  const sqlString = "SELECT eps.id, eps.number, src.mp4, src.gdrive, src.other FROM episodes AS eps JOIN sources AS src ON src.id = eps.source_id WHERE eps.title_id=? ORDER BY eps.number DESC";
   const values = [animeId];
 
   const result = await queryDatabase(conn, sqlString, values);

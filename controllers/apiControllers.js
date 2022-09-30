@@ -1,5 +1,3 @@
-const { connectToDatabase, queryDatabase } = require("../databases/functions");
-
 exports.getAllAnimeList = async (req, res) => {
   try {
     
