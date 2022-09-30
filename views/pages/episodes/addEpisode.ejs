@@ -1,0 +1,37 @@
+<div class="form-wrapper">
+  <h1>Tambah Episode Anime</h1>
+  <form action="/dashboard/episodes/add" method="post" class="card" id="form-add-src">
+    <div class="input-group">
+      <label for="animeId">ID Anime</label>
+      <% if (animes.length < 1) { %>
+        <input placeholder="Anime tidak tersedia" autocomplete="off" required disabled>      
+      <% } else { %>
+        <input list="animeId" name="animeId" autocomplete="off" required>
+        <datalist id="animeId" required>
+          <option selected disabled>Choose</option>
+          <% animes.forEach((anime) => { %>
+            <option value="<%= anime.id %>"><%= anime.title %></option>
+          <% }) %>  
+        </datalist>
+      <% } %>
+    </div>
+    <div class="input-group">
+      <label for="episode">Number Episode</label>
+      <input type="number" name="episode" id="episode" autocomplete="off" required disabled>
+    </div>
+    <div class="input-group">
+      <label for="mp4">Link MP4</label>
+      <input type="text" name="mp4" id="mp4" autocomplete="off" required>
+    </div>
+    <div class="input-group">
+      <label for="gdrive">Link Gdrive</label>
+      <input type="text" name="gdrive" id="gdrive" autocomplete="off" required>
+    </div>
+    <div class="input-group">
+      <label for="other">Link Other</label>
+      <input type="text" name="other" id="other" autocomplete="off" required>
+    </div>
+    <button type="submit">Kirim</button>
+  </form>
+</div>
+<script src="../../js/autoInputEpisode.js"></script>

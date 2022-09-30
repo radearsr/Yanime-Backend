@@ -1,0 +1,31 @@
+<% anime.forEach(ani => { %>
+  <div class="form-wrapper">
+    <h1>Edit "<%= ani.title %>"</h1>
+    <form action="/dashboard/animes/<%= ani.id %>/edit" method="post" class="card">
+      <div class="input-group">
+        <label for="title">Judul Anime</label>
+        <input type="text" name="title" id="title" value="<%= ani.title %>">
+      </div>
+      <div class="input-group">
+        <label for="poster">Poster</label>
+        <input type="text" name="poster" id="poster" value="<%= ani.poster %>">
+      </div>
+      <div class="input-group">
+        <label for="genre">Genre</label>
+        <input type="text" name="genre" id="genre" value="<%= ani.genre %>">
+      </div>
+      <div class="input-group">
+        <label for="type">Type</label>
+        <select name="type" id="type">
+          <option value="movie" <%= ani.type === "movie" ? "selected" : "" %>>Movie</option>
+          <option value="series" <%= ani.type === "series" ? "selected" : "" %>>Series</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label for="descriptions">Description</label>
+        <textarea name="descriptions" id="descriptions" cols="30" rows="5"><%= ani.descriptions %></textarea>
+      </div>
+      <button type="submit">Kirim</button>
+    </form>
+  </div>
+<% }); %> 

@@ -24,22 +24,22 @@
       <div class="sidebar-menu">
         <ul>
           <li>
-            <a href="/" class="<%= activePage === "home" ? "active" : "" %>" 
+            <a href="/dashboard" class="<%= activePage === "home" ? "active" : "" %>" 
               ><i class="fas fa-home sb-icon"></i><span>Home</span></a
             >
           </li>
           <li>
-            <a href="/add-anime" class="<%= activePage === "add-anime" ? "active" : "" %>" 
+            <a href="/dashboard/animes/add" class="<%= activePage === "add-anime" ? "active" : "" %>" 
               ><i class="fas fa-plus sb-icon"></i><span>Tambah Anime</span></a
             >
           </li>
           <li>
-            <a href="/add-src" class="<%= activePage === "add-src" ? "active" : "" %>"
+            <a href="/dashboard/episodes/add" class="<%= activePage === "add-eps" ? "active" : "" %>"
               ><i class="fas fa-puzzle-piece sb-icon"></i><span>Tambah Episode</span></a
             >
           </li>
           <li>
-            <a href="/list-anime" class="<%= activePage == "list-anime" ? "active" : "" %>" 
+            <a href="/dashboard/animes" class="<%= activePage == "list-anime" ? "active" : "" %>" 
               ><i class="fas fa-list sb-icon"></i><span>List Anime</span></a
             >
           </li>
@@ -76,17 +76,17 @@
         <% if (activePage === "home") { %> 
           <%- include("./pages/Home") %> 
         <% } else if (activePage === "add-anime") { %> 
-          <%- include("./pages/animePage/addAnime") %> 
-        <% } else if (activePage === "add-src") { %>
-          <%- include("./pages/sourcePage/addSource") %> 
+          <%- include("./pages/animes/addAnime") %> 
+        <% } else if (activePage === "add-eps") { %>
+          <%- include("./pages/episodes/addEpisode") %> 
         <% } else if (activePage === "list-anime") { %>
-          <%- include("./pages/animePage/listAnime") %> 
-        <% } else if (activePage === "list-src") { %>
-          <%- include("./pages/sourcePage/listSource") %> 
+          <%- include("./pages/animes/listAnime") %> 
+        <% } else if (activePage === "list-eps") { %>
+          <%- include("./pages/episodes/listEpisode") %> 
         <% } else if (activePage === "edit-anime") { %>
-          <%- include("./pages/animePage/editAnime") %> 
-        <% } else if (activePage === "edit-src") { %>
-          <%- include("./pages/sourcePage/editSource") %> 
+          <%- include("./pages/animes/editAnime") %> 
+        <% } else if (activePage === "edit-eps") { %>
+          <%- include("./pages/episodes/editEpisode") %> 
         <% } %>  
       </main>
     </div>
