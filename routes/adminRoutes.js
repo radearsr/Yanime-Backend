@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const adminControllers = require("../controllers/adminControllers");
 
-/* ============================= GENERAL ROUTES ============================= */
+/* ============================= COMMON ROUTES ============================= */
 // Render main page
 router.get("/", adminControllers.mainPage);
 

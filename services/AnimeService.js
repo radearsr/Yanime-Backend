@@ -62,11 +62,11 @@ exports.insertDescriptions = async (titleId, text) => {
 };
 
 
-exports.insertSources = async ({ gdrive, mp4, other }) => {
+exports.insertSources = async ({ gdrive, mp4, other, gdrive_id }) => {
   const conn = await connectToDatabase();
-  const sqlString = "INSERT INTO sources (gdrive, mp4, other) VALUES?";
+  const sqlString = "INSERT INTO sources (gdrive, mp4, other, gdrive_id) VALUES?";
   const values = [[
-    [gdrive, mp4, other]
+    [gdrive, mp4, other, gdrive_id]
   ]];
   const result = await queryDatabase(conn, sqlString, values);
   
@@ -94,7 +94,7 @@ exports.insertEpisodes = async (titleId, number, sourceId) => {
 
 exports.getAnimes = async () => {
   const conn = await connectToDatabase();
-  const sqlString = "SELECT a.*, p.image AS poster, d.text AS descriptions, eps.jml AS episode, g.name AS genre FROM animes AS a JOIN posters AS p ON a.id = p.title_id JOIN descriptions AS d ON a.id = d.title_id JOIN genres AS g ON a.id = g.title_id LEFT JOIN (SELECT a.id AS title_id, COUNT(*) AS jml FROM animes AS a INNER JOIN episodes AS eps ON a.id = eps.title_id GROUP BY a.id) AS eps ON eps.title_id = a.id ORDER BY a.title ASC";
+  const sqlString = "SELECT a.*, p.image AS poster, d.text AS descriptions, eps.jml AS episode, g.name AS genre FROM animes AS a JOIN posters AS p ON a.id = p.title_id JOIN descriptions AS d ON a.id = d.title_id JOIN genres AS g ON a.id = g.title_id LEFT JOIN (SELECT a.id, COUNT(*) AS jml FROM animes AS a INNER JOIN episodes AS eps ON a.id = eps.title_id GROUP BY a.id) AS eps ON a.id = eps.id ORDER BY a.title ASC";
   const result = await queryDatabase(conn, sqlString);
   return result;
 };
@@ -133,7 +133,7 @@ exports.deleteAnimeById = async (animeId) => {
 
 exports.getEpisodes = async (animeId) => {
   const conn = await connectToDatabase();
-  const sqlString = "SELECT eps.id, eps.number, src.mp4, src.gdrive, src.other FROM episodes AS eps JOIN sources AS src ON src.id = eps.source_id WHERE eps.title_id=? ORDER BY eps.number DESC";
+  const sqlString = "SELECT eps.id, eps.number, src.mp4, src.gdrive, src.other FROM episodes AS eps JOIN sources AS src ON src.id = eps.source_id WHERE eps.title_id=? ORDER BY eps.number ASC";
   const values = [animeId];
 
   const result = await queryDatabase(conn, sqlString, values);

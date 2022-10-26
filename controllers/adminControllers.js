@@ -119,15 +119,9 @@ exports.addEpisodesPage = async (req, res) => {
 exports.createEpisodesController = async (req, res) => {
   try {
     const { animeId, episode } = req.body;
-
     const sourceId = await animeService.insertSources(req.body);
-
-    console.log(episode);
-    
     await animeService.insertEpisodes(animeId, episode, sourceId);
-
     res.redirect("/dashboard/episodes/add");
-    
   } catch (error) {
     console.error(error);
     res.render("index", { activePage: "home" });  
@@ -184,3 +178,4 @@ exports.deleteEpisodeController = async (req, res) => {
     res.render("index", { activePage: "home" });
   }
 };
+
