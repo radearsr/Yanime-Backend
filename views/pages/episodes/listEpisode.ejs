@@ -1,0 +1,57 @@
+<div class="content-details">
+  <div class="content-list projects-list">
+    <div class="header-list">
+      <h2 class="title-list">Data Episode Anime</h2>
+      <a href="/dashboard/animes"><span class="fas fa-arrow-left"></span> Back</a>
+    </div>
+    <table class="table-project-list">
+      <thead>
+        <tr>
+          <th>Episode</th>
+          <th>Link MP4</th>
+          <th>Link Gdrive</th>
+          <th>Link Other</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (episodes.length > 0) { %>
+          <% episodes.forEach((eps) => { %>
+            <tr>
+              <td><%= eps.number %></td>
+              <td>
+                <%=
+                  eps.mp4.length > 25 ?
+                   eps.mp4.substring(0, 24)  + "..." 
+                   : eps.mp4 
+                %>
+              </td>
+              <td>
+                <%=
+                  eps.gdrive.length > 25 ?
+                   eps.gdrive.substring(0, 24)  + "..." 
+                   : eps.gdrive 
+                %>
+              </td>
+              <td>
+                <%=
+                  eps.other.length > 25 ?
+                   eps.other.substring(0, 24)  + "..." 
+                   : eps.other 
+                %>
+              </td>
+              <td>
+                <a href="/dashboard/episodes/<%= eps.id %>/edit?animeid=<%= animeid %>">Edit</a>
+                <a href="/dashboard/episodes/<%= eps.id %>/delete?animeid=<%= animeid %>" onclick="return confirm('Hapus episode <%= eps.number %> ?')">Delete</a>
+              </td>
+            </tr>
+         <%  }); %> 
+        <% } else { %>  
+          <tr>
+            <td colspan="5" style="text-align: center;">Episode belum tersedia</td>
+          </tr>
+        <% } %>  
+      </tbody>
+    </table>
+  </div>
+</div>

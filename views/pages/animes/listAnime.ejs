@@ -2,12 +2,12 @@
   <div class="content-list projects-list">
     <div class="header-list">
       <h2 class="title-list">Data Anime</h2>
-      <a href="/add-anime"><span class="fas fa-plus"></span> Anime</a>
+      <a href="/dashboard/animes/add"><span class="fas fa-plus"></span> Anime</a>
     </div>
     <table class="table-project-list">
       <thead>
         <tr>
-          <th>Nama Anime</th>
+          <th>Judul</th>
           <th>Poster</th>
           <th>Genre</th>
           <th>Type</th>
@@ -22,26 +22,26 @@
             <tr>
               <td><%= anime.title %></td>
               <td><%= anime.poster.length > 20 ? anime.poster.substring(0, 19) + "..." : anime.poster %> </td>
-              <td><%= anime.genre.length > 20 ? anime.genre.substring(0, 19)  + "..." : anime.genre %></td>
+              <td><%= anime.genre %></td>
               <td><%= anime.type %></td>
-              <td><%= anime.episodes.length %> </td>
+              <td><%= anime.episode === null ? 0 : anime.episode %></td>
               <td>
                 <%=
-                  anime.description.length > 20 ?
-                   anime.description.substring(0, 19)  + "..." 
-                   : anime.description 
+                  anime.descriptions.length > 20 ?
+                   anime.descriptions.substring(0, 19)  + "..." 
+                   : anime.descriptions 
                 %>
               </td>
               <td>
-                <a href="/edit-anime/<%= anime._id %>">Edit</a>
-                <a href="/del-anime/<%= anime._id %>" onclick="return confirm('Hapus <%= anime.title %> ?')">Delete</a>
-                <a href="/list-src/<%= anime._id %>">Eps</a>
+                <a href="/dashboard/animes/<%= anime.id %>/edit">Edit</a>
+                <a href="/dashboard/animes/<%= anime.id %>/delete" onclick="return confirm('Hapus <%= anime.title %> ?')">Delete</a>
+                <a href="/dashboard/animes/<%= anime.id %>/episodes">Eps</a>
               </td>
             </tr>
          <%  }); %> 
         <% } else { %> 
           <tr>
-            <td colspan="6" style="text-align: center;">Data belum tersedia</td>
+            <td colspan="7" style="text-align: center;">Data belum tersedia</td>
           </tr>
         <% } %> 
       </tbody>

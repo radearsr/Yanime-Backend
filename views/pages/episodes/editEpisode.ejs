@@ -1,0 +1,24 @@
+<% episode.forEach(eps => { %>
+  <div class="form-wrapper">
+    <h1>Edit <%= eps.id %></h1>
+    <form action="/dashboard/episodes/<%= eps.id %>/edit?animeid=<%= animeid %>" method="post" class="card">
+      <div class="input-group">
+        <label for="episode">Number Episode</label>
+        <input type="number" name="episodeNum" id="episode" value="<%= eps.number %>" autocomplete="off" required>
+      </div>
+      <div class="input-group">
+        <label for="mp4">Link MP4</label>
+        <input type="text" name="mp4" id="mp4" value="<%= eps.mp4 %>" autocomplete="off" required>
+      </div>
+      <div class="input-group">
+        <label for="gdrive">Link Gdrive</label>
+        <input type="text" name="gdrive" id="gdrive" value="<%= eps.gdrive %>" autocomplete="off" required>
+      </div>
+      <div class="input-group">
+        <label for="other">Link Other</label>
+        <input type="text" name="other" id="other" value="<%= eps.other %>" autocomplete="off" required>
+      </div>
+      <button type="submit">Kirim</button>
+    </form>
+  </div>
+<% }); %> 
