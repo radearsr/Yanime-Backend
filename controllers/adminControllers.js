@@ -1,5 +1,5 @@
-const AnimeList = require("../models/animeModel");
-const Source = require("../models/sourceModel");
+const AnimeList = require("../Models/animeModel");
+const Source = require("../Models/sourceModel");
 
 exports.mainPage = (req, res) => {
   res.render("index", { activePage: "home" });

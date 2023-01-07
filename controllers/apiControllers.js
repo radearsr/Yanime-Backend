@@ -1,6 +1,6 @@
 const path = require("path");
 const fs = require("fs");
-const AnimeList = require("../models/animeModel");
+const AnimeList = require("../Models/animeModel");
 
 const VIDEO_CONF = {
   videoPath: null,
