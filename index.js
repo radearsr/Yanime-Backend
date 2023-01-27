@@ -25,3 +25,5 @@ const port = 5000;
 app.listen(port, () => {
   console.log(`http://localhost:${port}/dashboard`);
 });
+
+module.exports = app;
